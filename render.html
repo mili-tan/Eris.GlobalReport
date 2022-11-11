@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <title>Awesome-pyecharts</title>
             <script type="text/javascript" src="https://assets.pyecharts.org/assets/echarts.min.js"></script>
-        <script type="text/javascript" src="https://assets.pyecharts.org/assets/maps/world.js"></script>
 
 </head>
 <body>
-    <div id="b2a0ccc35c764e7ea6138506b176d6e2" class="chart-container" style="width:900px; height:500px;"></div>
+    <div id="b730bb148ba74f7395dfb99dfaab36b0" class="chart-container" style="width:900px; height:500px;"></div>
     <script>
-        var chart_b2a0ccc35c764e7ea6138506b176d6e2 = echarts.init(
-            document.getElementById('b2a0ccc35c764e7ea6138506b176d6e2'), 'white', {renderer: 'canvas'});
-        var option_b2a0ccc35c764e7ea6138506b176d6e2 = {
+        var chart_b730bb148ba74f7395dfb99dfaab36b0 = echarts.init(
+            document.getElementById('b730bb148ba74f7395dfb99dfaab36b0'), 'white', {renderer: 'canvas'});
+        var option_b730bb148ba74f7395dfb99dfaab36b0 = {
     "animation": true,
     "animationThreshold": 2000,
     "animationDuration": 1000,
@@ -49,324 +48,42 @@
     ],
     "series": [
         {
-            "type": "map",
-            "name": "\u7ad9\u70b9\u6570",
+            "type": "bar",
+            "name": "\u57fa\u672c\u67f1\u72b6\u56fe",
+            "legendHoverLink": true,
+            "data": [
+                2133,
+                816,
+                283,
+                270,
+                217,
+                216,
+                191,
+                181,
+                151,
+                147,
+                133,
+                129,
+                105,
+                96,
+                92
+            ],
+            "showBackground": false,
+            "barMinHeight": 0,
+            "barCategoryGap": "20%",
+            "barGap": "30%",
+            "large": false,
+            "largeThreshold": 400,
+            "seriesLayoutBy": "column",
+            "datasetIndex": 0,
+            "clip": true,
+            "zlevel": 0,
+            "z": 2,
             "label": {
-                "show": false,
-                "position": "top",
+                "show": true,
+                "position": "right",
                 "margin": 8
             },
-            "mapType": "world",
-            "data": [
-                {
-                    "name": "United States",
-                    "value": 4001
-                },
-                {
-                    "name": "China",
-                    "value": 666
-                },
-                {
-                    "name": "Netherlands",
-                    "value": 446
-                },
-                {
-                    "name": "Japan",
-                    "value": 318
-                },
-                {
-                    "name": "Germany",
-                    "value": 302
-                },
-                {
-                    "name": "Russia",
-                    "value": 268
-                },
-                {
-                    "name": "Singapore",
-                    "value": 162
-                },
-                {
-                    "name": "France",
-                    "value": 131
-                },
-                {
-                    "name": "Iran",
-                    "value": 122
-                },
-                {
-                    "name": "Ireland",
-                    "value": 114
-                },
-                {
-                    "name": "United Kingdom",
-                    "value": 110
-                },
-                {
-                    "name": "Canada",
-                    "value": 92
-                },
-                {
-                    "name": "Korea",
-                    "value": 59
-                },
-                {
-                    "name": "Italy",
-                    "value": 59
-                },
-                {
-                    "name": "India",
-                    "value": 51
-                },
-                {
-                    "name": "Poland",
-                    "value": 50
-                },
-                {
-                    "name": "Spain",
-                    "value": 48
-                },
-                {
-                    "name": "Czech Rep.",
-                    "value": 38
-                },
-                {
-                    "name": "Turkey",
-                    "value": 37
-                },
-                {
-                    "name": "Australia",
-                    "value": 36
-                },
-                {
-                    "name": "Ukraine",
-                    "value": 22
-                },
-                {
-                    "name": "Indonesia",
-                    "value": 22
-                },
-                {
-                    "name": "Switzerland",
-                    "value": 22
-                },
-                {
-                    "name": "Romania",
-                    "value": 19
-                },
-                {
-                    "name": "Vietnam",
-                    "value": 17
-                },
-                {
-                    "name": "Azerbaijan",
-                    "value": 17
-                },
-                {
-                    "name": "Luxembourg",
-                    "value": 16
-                },
-                {
-                    "name": "Brazil",
-                    "value": 16
-                },
-                {
-                    "name": "Argentina",
-                    "value": 15
-                },
-                {
-                    "name": "Austria",
-                    "value": 15
-                },
-                {
-                    "name": "Bulgaria",
-                    "value": 12
-                },
-                {
-                    "name": "Finland",
-                    "value": 12
-                },
-                {
-                    "name": "Saudi Arabia",
-                    "value": 11
-                },
-                {
-                    "name": "Colombia",
-                    "value": 10
-                },
-                {
-                    "name": "Denmark",
-                    "value": 10
-                },
-                {
-                    "name": "Israel",
-                    "value": 10
-                },
-                {
-                    "name": "Hungary",
-                    "value": 10
-                },
-                {
-                    "name": "Slovakia",
-                    "value": 10
-                },
-                {
-                    "name": "Malaysia",
-                    "value": 10
-                },
-                {
-                    "name": "Norway",
-                    "value": 9
-                },
-                {
-                    "name": "Sweden",
-                    "value": 9
-                },
-                {
-                    "name": "Latvia",
-                    "value": 8
-                },
-                {
-                    "name": "Belgium",
-                    "value": 7
-                },
-                {
-                    "name": "Slovenia",
-                    "value": 7
-                },
-                {
-                    "name": "Lithuania",
-                    "value": 7
-                },
-                {
-                    "name": "Estonia",
-                    "value": 7
-                },
-                {
-                    "name": "Belize",
-                    "value": 6
-                },
-                {
-                    "name": "Belarus",
-                    "value": 6
-                },
-                {
-                    "name": "Moldova",
-                    "value": 5
-                },
-                {
-                    "name": "United Arab Emirates",
-                    "value": 5
-                },
-                {
-                    "name": "Portugal",
-                    "value": 5
-                },
-                {
-                    "name": "Thailand",
-                    "value": 5
-                },
-                {
-                    "name": "Venezuela",
-                    "value": 5
-                },
-                {
-                    "name": "South Africa",
-                    "value": 4
-                },
-                {
-                    "name": "Kazakhstan",
-                    "value": 4
-                },
-                {
-                    "name": "Cyprus",
-                    "value": 4
-                },
-                {
-                    "name": "Iceland",
-                    "value": 4
-                },
-                {
-                    "name": "Uzbekistan",
-                    "value": 4
-                },
-                {
-                    "name": "Croatia",
-                    "value": 4
-                },
-                {
-                    "name": "Qatar",
-                    "value": 3
-                },
-                {
-                    "name": "Chile",
-                    "value": 3
-                },
-                {
-                    "name": "Greece",
-                    "value": 3
-                },
-                {
-                    "name": "Philippines",
-                    "value": 2
-                },
-                {
-                    "name": "Mexico",
-                    "value": 2
-                },
-                {
-                    "name": "Seychelles",
-                    "value": 2
-                },
-                {
-                    "name": "Serbia",
-                    "value": 2
-                },
-                {
-                    "name": "Uruguay",
-                    "value": 2
-                },
-                {
-                    "name": "Egypt",
-                    "value": 2
-                },
-                {
-                    "name": "Cambodia",
-                    "value": 1
-                },
-                {
-                    "name": "Syria",
-                    "value": 1
-                },
-                {
-                    "name": "Bosnia and Herz.",
-                    "value": 1
-                },
-                {
-                    "name": "Malta",
-                    "value": 1
-                },
-                {
-                    "name": "Kyrgyzstan",
-                    "value": 1
-                },
-                {
-                    "name": "New Zealand",
-                    "value": 1
-                },
-                {
-                    "name": "Armenia",
-                    "value": 1
-                }
-            ],
-            "roam": true,
-            "aspectScale": 0.75,
-            "nameProperty": "name",
-            "selectedMode": false,
-            "zoom": 1,
-            "mapValueCalculation": "sum",
-            "showLegendSymbol": true,
-            "emphasis": {},
             "rippleEffect": {
                 "show": true,
                 "brushType": "stroke",
@@ -378,10 +95,10 @@
     "legend": [
         {
             "data": [
-                "\u7ad9\u70b9\u6570"
+                "\u57fa\u672c\u67f1\u72b6\u56fe"
             ],
             "selected": {
-                "\u7ad9\u70b9\u6570": true
+                "\u57fa\u672c\u67f1\u72b6\u56fe": true
             },
             "show": true,
             "padding": 5,
@@ -407,36 +124,78 @@
         "borderWidth": 0,
         "padding": 5
     },
+    "xAxis": [
+        {
+            "show": true,
+            "scale": false,
+            "nameLocation": "end",
+            "nameGap": 15,
+            "gridIndex": 0,
+            "inverse": false,
+            "offset": 0,
+            "splitNumber": 5,
+            "minInterval": 0,
+            "splitLine": {
+                "show": false,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid"
+                }
+            }
+        }
+    ],
+    "yAxis": [
+        {
+            "show": true,
+            "scale": false,
+            "nameLocation": "end",
+            "nameGap": 15,
+            "gridIndex": 0,
+            "inverse": false,
+            "offset": 0,
+            "splitNumber": 5,
+            "minInterval": 0,
+            "splitLine": {
+                "show": false,
+                "lineStyle": {
+                    "show": true,
+                    "width": 1,
+                    "opacity": 1,
+                    "curveness": 0,
+                    "type": "solid"
+                }
+            },
+            "data": [
+                "CLOUDFLARENET, US",
+                "AMAZON-02, US",
+                "VFMNL-AS Amsterdam Location BGP Setup, NL",
+                "ALIBABA-CN-NET Hangzhou Alibaba Advertising Co.,Ltd., CN",
+                "AMAZON-AES, US",
+                "FASTLY, US",
+                "FACEBOOK, US",
+                "TWITTER, US",
+                "GOOGLE, US",
+                "GOOGLE-CLOUD-PLATFORM, US",
+                "AKAMAI-AS, US",
+                "DROPBOX, US",
+                "OVH, FR",
+                "HETZNER-AS, DE",
+                "AKAMAI-ASN1, NL"
+            ]
+        }
+    ],
     "title": [
         {
-            "text": "\u5168\u7403\u524d10K\u70ed\u95e8\u7f51\u7ad9\u5206\u5e03\u56fd\u5bb6\uff08\u5730\u533a\uff09",
+            "text": "Bar-\u57fa\u672c\u793a\u4f8b",
             "padding": 5,
             "itemGap": 10
         }
-    ],
-    "visualMap": {
-        "show": true,
-        "type": "continuous",
-        "min": 0,
-        "max": 1000,
-        "inRange": {
-            "color": [
-                "#50a3ba",
-                "#eac763",
-                "#d94e5d"
-            ]
-        },
-        "calculable": true,
-        "inverse": false,
-        "splitNumber": 5,
-        "orient": "vertical",
-        "showLabel": true,
-        "itemWidth": 20,
-        "itemHeight": 140,
-        "borderWidth": 0
-    }
+    ]
 };
-        chart_b2a0ccc35c764e7ea6138506b176d6e2.setOption(option_b2a0ccc35c764e7ea6138506b176d6e2);
+        chart_b730bb148ba74f7395dfb99dfaab36b0.setOption(option_b730bb148ba74f7395dfb99dfaab36b0);
     </script>
 </body>
 </html>

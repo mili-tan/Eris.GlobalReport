@@ -1,9 +1,11 @@
+import json
 import os
 
 import pandas as pd
 from pyecharts import options as opts
-from pyecharts.charts import Map
+from pyecharts.charts import Map, Bar
 
+asnames = pd.read_json('asnames.json', typ='series')
 data = pd.read_csv("cnlist.csv", sep=",", header=None)
 country = pd.read_csv('Country_of_pyecharts.csv', header=None, index_col=1).squeeze().to_dict()
 
@@ -18,20 +20,35 @@ print("OK".center(30, "-"))
 value = data[3].value_counts().values.tolist()
 attr = data[3].value_counts().keys().tolist()
 
-data = []
-for index in range(len(attr)):
-    city_ionfo = [attr[index], value[index]]
-    data.append(city_ionfo)
+# data = []
+# for index in range(len(attr)):
+#     info = [attr[index], value[index]]
+#     data.append(info)
+#
+# c = (
+#     Map()
+#     .add("站点数", data, "world")
+#     .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
+#     .set_global_opts(
+#         title_opts=opts.TitleOpts(title="全球前10K热门网站分布国家（地区）"),
+#         visualmap_opts=opts.VisualMapOpts(max_=1000),
+#
+#     )
+#     .render()
+# )
 
-c = (
-    Map()
-    .add("站点数", data, "world")
-    .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
-    .set_global_opts(
-        title_opts=opts.TitleOpts(title="全球前10K热门网站分布国家（地区）"),
-        visualmap_opts=opts.VisualMapOpts(max_=1000),
+asnName = data[4].value_counts().head(15).keys().map(asnames).tolist()
+# asnName = "AS" + asnName.astype('str')
+# asnName = asnName.tolist()
+asnValue = data[4].value_counts().head(15).values.tolist()
 
-    )
+bar = (
+    Bar()
+    .add_xaxis(asnName)
+    .add_yaxis("基本柱状图", asnValue)
+    .reversal_axis()
+    .set_series_opts(label_opts=opts.LabelOpts(position="right"))
+    .set_global_opts(title_opts=opts.TitleOpts(title="Bar-基本示例"))
     .render()
 )
 
