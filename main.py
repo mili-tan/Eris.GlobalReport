@@ -1,6 +1,6 @@
+import flag
 import pandas as pd
 import pywebio.output
-import flag
 from pyecharts import options as opts
 from pyecharts.charts import Map, Bar
 from pyecharts.globals import ThemeType
@@ -16,6 +16,8 @@ with open("asname.csv", "r") as f:
 
 data = pd.read_csv("cnlist.csv", sep=",", header=None)
 country = pd.read_csv('Country_of_pyecharts.csv', header=None, index_col=1).squeeze().to_dict()
+
+tlds = data[1].str.upper().str.split('.', expand=True)[1]
 
 # print(data[1], data[0])
 # print(data[3].value_counts().head(10))
@@ -137,7 +139,6 @@ for index in range(len(asCountyCountName)):
     except:
         print(asCountyCountName[index][0])
 
-
 n2Data = []
 for index in range(len(asCountyCountName)):
     info = [asCountyCountName[index], asCountyCountValue[index]]
@@ -154,6 +155,46 @@ asnChart4 = (
         visualmap_opts=opts.VisualMapOpts(max_=10000),
     )
 )
-asnChart4.render()
 
 pywebio.output.put_html(asnChart4.render_notebook())
+
+tldValue20 = tlds.value_counts().head(20).values.tolist()
+tldName20 = tlds.value_counts().head(20).keys().tolist()
+
+for index in range(len(tldName20)):
+    tldName20[index] = flag.flag(tldName20[index]) + " " + tldName20[index]
+
+tldChart = (
+    Bar(init_opts=opts.InitOpts(width="850px",
+                                height="500px",
+                                theme=ThemeType.LIGHT))
+    .add_xaxis(tldName20)
+    .add_yaxis("站点数", tldValue20)
+    .reversal_axis()
+    .set_series_opts(label_opts=opts.LabelOpts(position="right"))
+    .set_global_opts(title_opts=opts.TitleOpts(title="热门网站域名后缀"))
+)
+
+pywebio.output.put_html(tldChart.render_notebook())
+
+tldCountryValue = tlds.map(country).value_counts().values.tolist()
+tldCountryName = tlds.map(country).value_counts().keys().tolist()
+
+n3Data = []
+for index in range(len(tldCountryName)):
+    info = [tldCountryName[index], tldCountryValue[index]]
+    n3Data.append(info)
+
+tldCountryChart1 = (
+    MapGoble(init_opts=opts.InitOpts(width="850px",
+                                height="500px",
+                                theme=ThemeType.LIGHT))
+    .add("站点数", n3Data, "world")
+    .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
+    .set_global_opts(
+        title_opts=opts.TitleOpts(title="热门网站域名后缀所属国家（地区）"),
+        visualmap_opts=opts.VisualMapOpts(max_=500),
+    )
+)
+
+pywebio.output.put_html(tldCountryChart1.render_notebook())
