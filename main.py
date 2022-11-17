@@ -186,7 +186,7 @@ for index in range(len(tldCountryName)):
     n3Data.append(info)
 
 tldCountryChart1 = (
-    MapGoble(init_opts=opts.InitOpts(width="850px",
+    Map(init_opts=opts.InitOpts(width="850px",
                                 height="500px",
                                 theme=ThemeType.LIGHT))
     .add("站点数", n3Data, "world")
