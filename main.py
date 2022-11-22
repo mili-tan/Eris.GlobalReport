@@ -41,7 +41,7 @@ countryChart1 = (
     .add("站点数", nData, "world")
     .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
     .set_global_opts(
-        title_opts=opts.TitleOpts(title="热门网站分布国家（地区）"),
+        title_opts=opts.TitleOpts(title="热门网站服务器 IP 分布国家（地区）"),
         visualmap_opts=opts.VisualMapOpts(max_=1000),
     )
 )
@@ -65,7 +65,7 @@ countryChart2 = (
     .add_yaxis("站点数", countryValue15)
     .reversal_axis()
     .set_series_opts(label_opts=opts.LabelOpts(position="right"))
-    .set_global_opts(title_opts=opts.TitleOpts(title="热门网站分布国家（地区）"))
+    .set_global_opts(title_opts=opts.TitleOpts(title="热门网站服务器 IP 分布国家（地区）"))
     # .set_global_opts(yaxis_opts=opts.AxisOpts())
     # .set_global_opts(yaxis_opts=opts.AxisOpts(splitline_opts=opts.SplitLineOpts(is_show=True)))
 )
