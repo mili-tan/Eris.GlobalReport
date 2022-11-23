@@ -2,8 +2,9 @@ import flag
 import pandas as pd
 import pywebio.output
 from pyecharts import options as opts
-from pyecharts.charts import Map, Bar
-from pyecharts.globals import ThemeType
+from pyecharts.charts import Map, Bar, Geo
+from pyecharts.globals import ThemeType, ChartType
+import ipdb
 
 
 def app():
@@ -27,24 +28,30 @@ def app():
     # print(data)
 
     cnData = data[data[3] == "CN"]
-    cnData.append(data[data[3] == "HK"])
-    cnData.append(data[data[3] == "TW"])
+    cnData = cnData.append(data[data[3] == "TW"])
+    cnData = cnData.append(data[data[3] == "HK"])
+
+    db = ipdb.City("ipipfree.ipdb")
+    cnCityData = []
+    for item in cnData[2]:
+        city = db.find_info(addr=str(item), language="CN").city_name
+        if city == "桃园市" or city == "新北市": city = "桃园"
+        if len(city) == 0: city = "香港"
+        cnCityData.append([item, city])
+    cnCityData = pd.DataFrame(cnCityData)[1].value_counts()
 
     print("OK".center(30, "-"))
 
     countryValue = data[3].map(country).value_counts().values.tolist()
     countryName = data[3].map(country).value_counts().keys().tolist()
 
-    nData = []
-    for index in range(len(countryName)):
-        info = [countryName[index], countryValue[index]]
-        nData.append(info)
-
     countryChart1 = (
         Map(init_opts=opts.InitOpts(width="850px",
                                     height="500px",
                                     theme=ThemeType.LIGHT))
-        .add("站点数", nData, "world")
+        .add("站点数",
+             [list(z) for z in zip(countryName, countryValue)]
+             , "world")
         .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
         .set_global_opts(
             title_opts=opts.TitleOpts(title="热门网站服务器 IP 分布国家（地区）"),
@@ -90,8 +97,20 @@ def app():
         .set_series_opts(label_opts=opts.LabelOpts(position="right"))
         .set_global_opts(title_opts=opts.TitleOpts(title="热门网站服务器网络所属 ASN"))
     )
-
     pywebio.output.put_html(asnChart1.render_notebook())
+
+    cnCityChart = (
+        Geo()
+        .add_schema(maptype="china")
+        .add(
+            "站点数",
+            [list(z) for z in zip(cnCityData.keys().tolist(), cnCityData.values.tolist())],
+        )
+        .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
+        .set_global_opts(title_opts=opts.TitleOpts(title="中国（含港澳台）热门网站服务器 IP 分布城市"),
+                         visualmap_opts=opts.VisualMapOpts(max_=15))
+    )
+    pywebio.output.put_html(cnCityChart.render_notebook())
 
     asNumberCN = ", AS" + cnData[4].value_counts().head(20).keys().astype('str')
     asnNameCN = (cnData[4].value_counts().head(20).keys().astype('str').map(asName) + asNumberCN).tolist()
@@ -103,7 +122,7 @@ def app():
         .add_yaxis("站点数", asnValueCN)
         .reversal_axis()
         .set_series_opts(label_opts=opts.LabelOpts(position="right"))
-        .set_global_opts(title_opts=opts.TitleOpts(title="中国热门网站服务器网络所属 ASN"))
+        .set_global_opts(title_opts=opts.TitleOpts(title="中国（含港澳台）热门网站服务器网络所属 ASN"))
     )
 
     pywebio.output.put_html(asnChart1.render_notebook())
@@ -159,18 +178,14 @@ def app():
             asCountyCountName[index] = country[asCountyCountName[index][0]]
         except:
             pass
-            #print(asCountyCountName[index][0])
-
-    n2Data = []
-    for index in range(len(asCountyCountName)):
-        info = [asCountyCountName[index], asCountyCountValue[index]]
-        n2Data.append(info)
 
     asnChart4 = (
         Map(init_opts=opts.InitOpts(width="850px",
                                     height="500px",
                                     theme=ThemeType.LIGHT))
-        .add("自治系统数", n2Data, "world")
+        .add("自治系统数",
+             [list(z) for z in zip(asCountyCountName, asCountyCountValue)]
+             , "world")
         .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
         .set_global_opts(
             title_opts=opts.TitleOpts(title="全球 ASN 分布国家（地区）"),
@@ -202,16 +217,13 @@ def app():
     tldCountryValue = tlds.map(country).value_counts().values.tolist()
     tldCountryName = tlds.map(country).value_counts().keys().tolist()
 
-    n3Data = []
-    for index in range(len(tldCountryName)):
-        info = [tldCountryName[index], tldCountryValue[index]]
-        n3Data.append(info)
-
     tldCountryChart1 = (
         Map(init_opts=opts.InitOpts(width="850px",
                                     height="500px",
                                     theme=ThemeType.LIGHT))
-        .add("站点数", n3Data, "world")
+        .add("站点数",
+             [list(z) for z in zip(tldCountryName, tldCountryValue)]
+             , "world")
         .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
         .set_global_opts(
             title_opts=opts.TitleOpts(title="热门网站域名后缀所属国家（地区）"),
@@ -221,5 +233,6 @@ def app():
 
     pywebio.output.put_html(tldCountryChart1.render_notebook())
 
+
 if __name__ == '__main__':
-    pywebio.start_server(app, cdn=False)
+    pywebio.start_server(app, port=8080, cdn=False)
