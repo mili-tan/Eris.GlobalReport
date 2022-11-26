@@ -1,24 +1,24 @@
 import flag
+import ipdb
 import pandas as pd
 import pywebio.output
 from pyecharts import options as opts
 from pyecharts.charts import Map, Bar, Geo
-from pyecharts.globals import ThemeType, ChartType
-import ipdb
+from pyecharts.globals import ThemeType
 
 
 def app():
     asName = {}
     asCounty = {}
-    with open("asname.csv", "r") as f:
+    with open("as-name.csv", "r") as f:
         data = f.readlines()
         for i in data:
             sp = i.split(',')
             asName[sp[0]] = "".join(sp[1:-1]).strip()
             asCounty[sp[0]] = sp[-1].strip()
 
-    data = pd.read_csv("cnlist.csv", sep=",", header=None)
-    country = pd.read_csv('Country_of_pyecharts.csv', header=None, index_col=1).squeeze().to_dict()
+    data = pd.read_csv("global-list-1m.csv", sep=",", header=None)
+    country = pd.read_csv('country-of-pyecharts.csv', header=None, index_col=1).squeeze().to_dict()
 
     tlds = data[1].str.upper().str.split('.', expand=True)[1]
 
@@ -30,6 +30,7 @@ def app():
     cnData = data[data[3] == "CN"]
     cnData = cnData.append(data[data[3] == "TW"])
     cnData = cnData.append(data[data[3] == "HK"])
+    cnData = cnData.append(data[data[3] == "MO"])
 
     db = ipdb.City("ipipfree.ipdb")
     cnCityData = []
@@ -55,7 +56,7 @@ def app():
         .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
         .set_global_opts(
             title_opts=opts.TitleOpts(title="热门网站服务器 IP 分布国家（地区）"),
-            visualmap_opts=opts.VisualMapOpts(max_=1000),
+            visualmap_opts=opts.VisualMapOpts(max_=25000),
         )
     )
 
@@ -100,7 +101,9 @@ def app():
     pywebio.output.put_html(asnChart1.render_notebook())
 
     cnCityChart = (
-        Geo()
+        Geo(init_opts=opts.InitOpts(width="850px",
+                                    height="500px",
+                                    theme=ThemeType.LIGHT))
         .add_schema(maptype="china")
         .add(
             "站点数",
@@ -108,7 +111,7 @@ def app():
         )
         .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
         .set_global_opts(title_opts=opts.TitleOpts(title="中国（含港澳台）热门网站服务器 IP 分布城市"),
-                         visualmap_opts=opts.VisualMapOpts(max_=15))
+                         visualmap_opts=opts.VisualMapOpts(max_=50))
     )
     pywebio.output.put_html(cnCityChart.render_notebook())
 
@@ -227,7 +230,7 @@ def app():
         .set_series_opts(label_opts=opts.LabelOpts(is_show=False))
         .set_global_opts(
             title_opts=opts.TitleOpts(title="热门网站域名后缀所属国家（地区）"),
-            visualmap_opts=opts.VisualMapOpts(max_=500),
+            visualmap_opts=opts.VisualMapOpts(max_=10000),
         )
     )
 
