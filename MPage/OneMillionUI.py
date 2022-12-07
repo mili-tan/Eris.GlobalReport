@@ -5,10 +5,15 @@ from pyecharts import options as opts
 from pyecharts.charts import Map, Bar, Geo
 from pyecharts.globals import ThemeType
 
+from pywebio.output import *
+import MContext
+
 from MImports1m import data, country, asName, cnCityData, cnData, asCounty, tlds
 
 
 def app():
+    clear()
+    put_html(MContext.nav)
 
     countryValue = data[3].map(country).value_counts().values.tolist()
     countryName = data[3].map(country).value_counts().keys().tolist()
