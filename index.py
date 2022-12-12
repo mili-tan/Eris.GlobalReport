@@ -4,11 +4,14 @@ from flask import Flask, json
 from pywebio.platform.flask import webio_view
 from werkzeug.exceptions import HTTPException
 
-from MPage import IndexUI, TenThousandUI, OneMillionUI, GeoIPUI, AsnUI, DomainUI, CnGeoIPUI
+from MPage import IndexUI, TenThousandUI, OneMillionUI, GeoIPUI, AsnUI, DomainUI, CnGeoIPUI, GetUI
 
 app = Flask(__name__)
 
 app.add_url_rule('/', 'index', webio_view(IndexUI.index),
+                 methods=['GET', 'POST', 'OPTIONS'])
+
+app.add_url_rule('/get', 'get', webio_view(GetUI.index),
                  methods=['GET', 'POST', 'OPTIONS'])
 
 app.add_url_rule('/ip', 'ip', webio_view(GeoIPUI.app),

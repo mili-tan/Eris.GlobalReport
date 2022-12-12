@@ -3,6 +3,8 @@ __pycache__/
 *.py[cod]
 *$py.class
 ipipfree.ipdb
+GeoLite2-ASN.mmdb
+GeoLite2-City.mmdb
 
 # C extensions
 *.so
